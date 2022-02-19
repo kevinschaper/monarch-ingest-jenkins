@@ -8,7 +8,7 @@ ENV GROUP_ID=$GID
 ENV USER_ID=$UID
 ENV USERNAME=$UNAME
 
-RUN mkdir /home/$USERNAME
+RUN mkdir -p /home/$USERNAME
 
 RUN groupadd -g $GROUP_ID $USERNAME
 RUN useradd -r -u $USER_ID -g $USERNAME -d /home/$USERNAME $USERNAME

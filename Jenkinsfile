@@ -8,11 +8,11 @@ pipeline {
     agent {
         dockerfile {
             filename 'Dockerfile'
-            additionalBuildArgs '''\
-              --build-arg GID=$JENKINS_GROUP_ID \
-              --build-arg UID=$JENKINS_USER_ID \
-              --build-arg UNAME=$JENKINS_USER_NAME \
-            '''
+//             additionalBuildArgs '''\
+//               --build-arg GID=$JENKINS_GROUP_ID \
+//               --build-arg UID=$JENKINS_USER_ID \
+//               --build-arg UNAME=$JENKINS_USER_NAME \
+//             '''
         }
     }
     stages {
@@ -23,7 +23,7 @@ pipeline {
                     pwd
                     ls -l
                     koza transform --source monarch_ingest/zfin/gene_to_phenotype.yaml
-                    '''                    
+                    '''
             }
         }
     }

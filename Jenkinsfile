@@ -33,7 +33,7 @@ pipeline {
             }
         }
         stage('upload') {
-            agent worker
+            agent { label: 'worker'}
             steps {
                 sh 'cd $HOME'
                 sh 'pwd'

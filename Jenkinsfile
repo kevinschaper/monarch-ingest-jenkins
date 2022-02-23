@@ -35,7 +35,6 @@ pipeline {
         stage('upload') {
             agent { label 'worker'}
             steps {
-                sh 'cd $HOME'
                 sh 'pwd'
                 sh 'ls -l'
                 sh 'gsutil cp output/zfin_gene_to_publication* gs://monarch-ingest/output/'

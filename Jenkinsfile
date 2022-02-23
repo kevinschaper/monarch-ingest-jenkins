@@ -9,6 +9,7 @@ pipeline {
     stages {
         stage('Initialize') {
             agent {
+                label 'large worker'
                 dockerfile {
                     filename 'Dockerfile'
         //             additionalBuildArgs '''\
@@ -24,11 +25,12 @@ pipeline {
                 sh '''
                     pwd
                     ls -l
-                    mkdir -p data/zfin
-                    wget -q https://zfin.org/downloads/gene_publication.txt
-                    mv gene_publication.txt data/zfin
-                    ls -la /monarch-ingest/venv/bin/koza
-                    /monarch-ingest/venv/bin/koza transform --source monarch_ingest/zfin/gene_to_publication.yaml --row-limit 1000
+                    /monarch-ingest/venv/bin/dagster job execute -f monarch_ingest/ingest_pipeline.py
+//                    mkdir -p data/zfin
+//                    wget -q https://zfin.org/downloads/gene_publication.txt
+//                    mv gene_publication.txt data/zfin
+//                    ls -la /monarch-ingest/venv/bin/koza
+//                    /monarch-ingest/venv/bin/koza transform --source monarch_ingest/zfin/gene_to_publication.yaml --row-limit 1000
                     '''
             }
         }
@@ -38,7 +40,7 @@ pipeline {
                 sh 'cd /tmp/workspace/ingest-test'
                 sh 'pwd'
                 sh 'ls -l'
-                sh 'gsutil cp output/zfin_gene_to_publication* gs://monarch-ingest/output/'
+                sh 'gsutil cp -r output/* gs://monarch-ingest/experimental-output/'
             }
         }
     }

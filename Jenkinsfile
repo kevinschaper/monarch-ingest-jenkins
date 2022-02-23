@@ -24,7 +24,7 @@ pipeline {
                     pwd
                     ls -l
                     mkdir -p data/zfin
-                    wget https://zfin.org/downloads/gene_publication.txt
+                    wget -q https://zfin.org/downloads/gene_publication.txt
                     mv gene_publication.txt data/zfin
                     ls -la /monarch-ingest/venv/bin/koza
                     /monarch-ingest/venv/bin/koza transform --source monarch_ingest/zfin/gene_to_publication.yaml --row-limit 1000

@@ -17,12 +17,13 @@ FROM python:3.8
 USER $USERNAME
 WORKDIR /home/$USERNAME
 
-RUN python -m venv venv
-RUN source venv/bin/activate
+
 RUN git clone https://github.com/monarch-initiative/monarch-ingest.git
 WORKDIR "monarch-ingest"
-RUN pip install poetry
-RUN poetry install
+RUN python -m venv venv
+RUN ./venv/bin/pip install poetry
+
+RUN . venv/bin/activate && poetry install
 
 ENTRYPOINT ["poetry","run"]
 

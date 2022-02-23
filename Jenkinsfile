@@ -19,7 +19,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'cd $HOME'
+                sh 'cd /tmp/workspace/ingest-test'
                 git branch: 'main', url: 'https://github.com/monarch-initiative/monarch-ingest.git'
                 sh '''
                     pwd
@@ -35,6 +35,7 @@ pipeline {
         stage('upload') {
             agent { label 'worker'}
             steps {
+                sh 'cd /tmp/workspace/ingest-test'
                 sh 'pwd'
                 sh 'ls -l'
                 sh 'gsutil cp output/zfin_gene_to_publication* gs://monarch-ingest/output/'

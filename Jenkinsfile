@@ -9,8 +9,8 @@ pipeline {
     stages {
         stage('Initialize') {
             agent {
-                label 'large worker'
                 dockerfile {
+                    label 'large-worker'
                     filename 'Dockerfile'
         //             additionalBuildArgs '''\
         //               --build-arg GID=$JENKINS_GROUP_ID \

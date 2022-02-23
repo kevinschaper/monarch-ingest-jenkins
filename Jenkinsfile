@@ -22,7 +22,11 @@ pipeline {
                 sh '''
                     pwd
                     ls -l
-                    koza transform --source monarch_ingest/zfin/gene_to_phenotype.yaml
+                    mkdir -p data/zfin
+                    wget https://zfin.org/downloads/gene_publication.txt
+                    mv gene_publication.txt data/zfin
+                    koza transform --source monarch_ingest/zfin/gene_to_publication.yaml
+                    gsutil cp output/zfin_gene_to_publication* gs://monarch-ingest/output/
                     '''
             }
         }

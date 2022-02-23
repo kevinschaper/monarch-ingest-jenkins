@@ -14,9 +14,8 @@ FROM python:3.8
 #RUN useradd -r -u $USER_ID -g $USERNAME -d /home/$USERNAME $USERNAME
 #RUN chown $USERNAME:$USERNAME /home/$USERNAME
 
-USER $USERNAME
-WORKDIR /home/$USERNAME
-
+#USER $USERNAME
+#WORKDIR /home/$USERNAME
 
 RUN git clone https://github.com/monarch-initiative/monarch-ingest.git
 WORKDIR "monarch-ingest"
@@ -24,8 +23,7 @@ RUN python -m venv venv
 RUN ./venv/bin/pip install poetry
 
 RUN . venv/bin/activate && poetry install
-
-ENTRYPOINT ["poetry","run"]
+# ENTRYPOINT ["poetry","run"]
 
 
 

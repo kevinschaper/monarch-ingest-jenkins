@@ -18,6 +18,7 @@ pipeline {
     stages {
         stage('Initialize') {
             steps {
+                sh 'cd $HOME'
                 git branch: 'main', url: 'https://github.com/monarch-initiative/monarch-ingest.git'
                 sh '''
                     pwd
@@ -27,8 +28,13 @@ pipeline {
                     mv gene_publication.txt data/zfin
                     ls -la /monarch-ingest/venv/bin/koza
                     /monarch-ingest/venv/bin/koza transform --source monarch_ingest/zfin/gene_to_publication.yaml
-                    gsutil cp output/zfin_gene_to_publication* gs://monarch-ingest/output/
                     '''
+            }
+        }
+        stage('upload') {
+            steps {
+                sh 'cd $HOME'
+                sh 'gsutil cp output/zfin_gene_to_publication* gs://monarch-ingest/output/'
             }
         }
     }
